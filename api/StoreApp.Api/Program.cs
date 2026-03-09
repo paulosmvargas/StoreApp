@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StoreApp.Api.Data;
+using StoreApp.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddHttpClient<ProdutoService>();
 
 // Registrar DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -24,7 +25,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Endooints aqui
+// Endpoints aqui
 app.MapControllers();
 
 app.Run();
