@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { NgFor, CurrencyPipe, NgIf } from '@angular/common';
+import { NgFor, CurrencyPipe } from '@angular/common';
 import { CarrinhoService } from '../../services/carrinho.service';
 import { Produto } from '../../models/produto';
 import { RouterLink } from '@angular/router';
@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-carrinho',
   standalone: true,
   templateUrl: './carrinho.html',
-  imports: [NgFor, NgIf, CurrencyPipe, RouterLink]
+  imports: [NgFor, CurrencyPipe, RouterLink]
 })
 export class Carrinho {
 

@@ -1,9 +1,14 @@
 <h2>Produtos</h2>
+
 <a routerLink="/carrinho">
   <button>Ver Carrinho</button>
 </a>
 
-<div *ngFor="let produto of (produtos$ | async) ?? []">
+<br><br>
+
+<div class="card" *ngFor="let produto of (produtos$ | async) ?? []">
+
+  <img [src]="produto.imagem" class="produto-img">
 
   <h3>{{ produto.nome }}</h3>
 

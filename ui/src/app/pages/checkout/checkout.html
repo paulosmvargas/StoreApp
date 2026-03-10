@@ -1,0 +1,32 @@
+<h2>Checkout</h2>
+
+<label>Nome</label>
+<input type="text" [(ngModel)]="nome">
+
+<br><br>
+
+<label>Email</label>
+<input type="email" [(ngModel)]="email">
+
+<br><br>
+
+<label>Endereço</label>
+<input type="text" [(ngModel)]="endereco">
+
+<br><br>
+
+<label>Forma de pagamento</label>
+
+<select [(ngModel)]="meioPagamento">
+  <option>Pix</option>
+  <option>Cartao</option>
+  <option>Boleto</option>
+</select>
+
+<br><br>
+
+<h3>Total: {{ total() | currency:'BRL' }}</h3>
+
+<button (click)="finalizarPedido()">
+  Finalizar Pedido
+</button>

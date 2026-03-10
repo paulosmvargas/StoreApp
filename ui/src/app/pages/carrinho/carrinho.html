@@ -1,18 +1,12 @@
 <h2>Carrinho</h2>
 
-<div *ngIf="itens.length === 0">
-  <p>Seu carrinho está vazio.</p>
-</div>
-
-<div *ngFor="let item of itens">
+<div class="card" *ngFor="let item of itens">
 
   <h3>{{ item.nome }}</h3>
 
   <p>{{ item.preco | currency:'BRL' }}</p>
 
 </div>
-
-<hr>
 
 <h3>Total: {{ total() | currency:'BRL' }}</h3>
 
