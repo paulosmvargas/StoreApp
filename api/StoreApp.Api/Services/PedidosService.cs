@@ -8,14 +8,18 @@ namespace StoreApp.Api.Services;
 public class PedidosService
 {
     private readonly AppDbContext _context;
+    private readonly ProdutoService _produtoService;
 
-    public PedidosService(AppDbContext context)
+    public PedidosService(AppDbContext context, ProdutoService produtoService)
     {
         _context = context;
+        _produtoService = produtoService;
     }
 
     public async Task<int> CriarPedidoAsync(CriarPedidoRequest request)
     {
+        var produtos = await _produtoService.GetProdutosAsync();
+
         var pedido = new Pedido
         {
             NomeCliente = request.Nome,
@@ -24,13 +28,21 @@ public class PedidosService
             MeioPagamento = request.MeioPagamento
         };
 
+        if (!request.Produtos.Any())
+            throw new Exception("Pedido precisa ter ao menos um produto!");
+
         foreach (var item in request.Produtos)
         {
+            var produto = produtos.FirstOrDefault(p => p.Id == item.ProdutoId);
+            
+            if (produto == null)
+                throw new Exception($"Product {item.ProdutoId} not found");
+
             pedido.Itens.Add(new PedidoItem
             {
-                ProdutoId = item.ProdutoId,
-                NomeProduto = $"Produto {item.ProdutoId}",
-                Valor = 0,
+                ProdutoId = produto.Id,
+                NomeProduto = produto.Nome,
+                Valor = produto.Preco,
                 Quantidade = item.Quantidade
             });
         }
