@@ -1,6 +1,16 @@
 <h2>Produtos</h2>
+<a routerLink="/carrinho">
+  <button>Ver Carrinho</button>
+</a>
 
 <div *ngFor="let produto of (produtos$ | async) ?? []">
+
   <h3>{{ produto.nome }}</h3>
+
   <p>{{ produto.preco | currency:'BRL' }}</p>
+
+  <button (click)="adicionarCarrinho(produto)">
+    Adicionar ao carrinho
+  </button>
+
 </div>
