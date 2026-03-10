@@ -12,4 +12,11 @@ public class AppDbContext : DbContext
 
     public DbSet<Pedido> Pedidos => Set<Pedido>();
     public DbSet<PedidoItem> PedidoItens => Set<PedidoItem>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Pedido>()
+            .Property(p => p.MeioPagamento)
+            .HasConversion<string>();
+    }
 }

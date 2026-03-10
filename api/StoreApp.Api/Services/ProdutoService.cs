@@ -33,7 +33,7 @@ public class ProdutoService
             Nome = p.Title,
             Descricao = p.Description,
             Preco = p.Price,
-            Estoque = Random.Shared.Next(8, 25),
+            Estoque = Random.Shared.Next(0, 25),
             Imagem = p.Image
         }).ToList();
     }

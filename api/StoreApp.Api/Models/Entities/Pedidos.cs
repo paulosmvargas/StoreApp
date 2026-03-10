@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-
+using StoreApp.Api.Models.Enums;
 namespace StoreApp.Api.Models.Entities;
 
 public class Pedido
@@ -16,7 +16,8 @@ public class Pedido
     public string Endereco { get; set; } = string.Empty;
 
     [Required]
-    public string MeioPagamento { get; set; } = string.Empty;
+    [EnumDataType(typeof(MeiosPagamento))]
+    public MeiosPagamento MeioPagamento { get; set; }
 
     public DateTime CriadoEm { get; set; } = DateTime.UtcNow;
 

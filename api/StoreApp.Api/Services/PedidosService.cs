@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using StoreApp.Api.Data;
 using StoreApp.Api.Models.DTOs;
 using StoreApp.Api.Models.Entities;
+using StoreApp.Api.Models.Enums;
 
 namespace StoreApp.Api.Services;
 
@@ -20,23 +21,34 @@ public class PedidosService
     {
         var produtos = await _produtoService.GetProdutosAsync();
 
+        // valida produtos duplicados no mesmo pedido
+        var duplicated = request.Produtos
+            .GroupBy(p => p.ProdutoId)
+            .Any(g => g.Count() > 1);
+
+        if (duplicated)
+            throw new ArgumentException("Produtos duplicados no pedido");
+
         var pedido = new Pedido
         {
             NomeCliente = request.Nome,
             Email = request.Email,
             Endereco = request.Endereco,
-            MeioPagamento = request.MeioPagamento
+            MeioPagamento = Enum.Parse<MeiosPagamento>(request.MeioPagamento)
         };
-
-        if (!request.Produtos.Any())
-            throw new Exception("Pedido precisa ter ao menos um produto!");
 
         foreach (var item in request.Produtos)
         {
             var produto = produtos.FirstOrDefault(p => p.Id == item.ProdutoId);
-            
+
             if (produto == null)
-                throw new Exception($"Product {item.ProdutoId} not found");
+                throw new ArgumentException($"Produto {item.ProdutoId} não encontrado");
+
+            if (produto.Estoque <= 0)
+                throw new InvalidOperationException($"Produto {produto.Nome} sem estoque");
+
+            if (item.Quantidade > produto.Estoque)
+                throw new InvalidOperationException($"Estoque insuficiente para {produto.Nome}");
 
             pedido.Itens.Add(new PedidoItem
             {
@@ -47,9 +59,13 @@ public class PedidosService
             });
         }
 
+        using var transaction = await _context.Database.BeginTransactionAsync();
+
         _context.Pedidos.Add(pedido);
 
         await _context.SaveChangesAsync();
+
+        await transaction.CommitAsync();
 
         return pedido.Id;
     }
