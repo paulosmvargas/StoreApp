@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace StoreApp.Api.Models.Entities;
 
 public class PedidoItem
@@ -6,6 +8,7 @@ public class PedidoItem
 
     public int PedidoId { get; set; }
 
+    [JsonIgnore]
     public Pedido Pedido { get; set; } = null!;
 
     public int ProdutoId { get; set; }
