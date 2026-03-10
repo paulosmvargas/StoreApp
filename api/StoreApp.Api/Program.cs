@@ -17,6 +17,18 @@ builder.Services.AddHttpClient<ProdutoService>();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PgLocal")));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 // Middleware
@@ -26,11 +38,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<ExceptionMiddleware>();
-
 app.UseHttpsRedirection();
 
-// Endpoints aqui
+app.UseCors("AllowFrontend");
+
+app.UseMiddleware<ExceptionMiddleware>();
+
+// Mapear endpoints
 app.MapControllers();
 
 app.Run();
