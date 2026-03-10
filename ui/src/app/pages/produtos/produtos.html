@@ -1,21 +1,36 @@
-<h2>Produtos</h2>
+<section class="page">
+  <div class="page-header">
+    <div>
+      <h2>Produtos</h2>
+      <p>Confira os itens disponíveis</p>
+    </div>
+  </div>
+  <ng-container *ngIf="produtos$ | async as produtos">
+    <p class="count">{{ produtos.length }} itens</p>
 
-<a routerLink="/carrinho">
-  <button>Ver Carrinho</button>
-</a>
+    <div class="grid">
+      <div class="product-card" *ngFor="let produto of produtos">
+        <img [src]="produto.imagem" alt="{{ produto.nome }}" />
 
-<br><br>
+        <div class="content">
+          <h3>{{ produto.nome }}</h3>
+          <p class="price">{{ produto.preco | currency:'BRL' }}</p>
+          <p class="stock">Estoque: {{ produto.estoque }}</p>
+        </div>
 
-<div class="card" *ngFor="let produto of (produtos$ | async) ?? []">
+        <div class="card-footer">
+          <button
+            (click)="adicionarCarrinho(produto)"
+            [disabled]="produto.estoque === 0"
+          >
+            {{ produto.estoque === 0 ? 'Sem estoque' : 'Adicionar ao carrinho' }}
+          </button>
 
-  <img [src]="produto.imagem" class="produto-img">
-
-  <h3>{{ produto.nome }}</h3>
-
-  <p>{{ produto.preco | currency:'BRL' }}</p>
-
-  <button (click)="adicionarCarrinho(produto)">
-    Adicionar ao carrinho
-  </button>
-
-</div>
+          <div class="toast" [class.show]="toasts()[produto.id]">
+            Produto adicionado com sucesso
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</section>

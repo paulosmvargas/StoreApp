@@ -1,0 +1,38 @@
+.page-header p { color: var(--muted); margin: 6px 0 0; }
+
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 18px;
+}
+
+.form {
+  display: grid;
+  gap: 12px;
+}
+
+.form input,
+.form select {
+  margin-top: 12px;
+}
+
+.resumo h3 { margin-top: 0; }
+.line {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eef0f6;
+}
+
+.muted { color: var(--muted); font-size: 13px; }
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  padding-top: 12px;
+}
+
+@media (max-width: 900px) {
+  .checkout-grid { grid-template-columns: 1fr; }
+}

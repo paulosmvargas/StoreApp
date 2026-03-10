@@ -1,17 +1,33 @@
-<h2>Carrinho</h2>
+<section class="page">
+  <div class="page-header">
+    <div>
+      <h2>Carrinho</h2>
+      <p>Revise seus itens antes de finalizar</p>
+    </div>
+    <a routerLink="/checkout"><button>Ir para Checkout</button></a>
+  </div>
 
-<div class="card" *ngFor="let item of itens">
+  <div class="cart-grid">
+    <div class="itens-grid">
+      <div class="card item" *ngFor="let item of itens">
+        <div class="info">
+          <h3>{{ item.produto.nome }}</h3>
+          <p class="price">{{ item.produto.preco | currency: 'BRL' }}</p>
+        </div>
 
-  <h3>{{ item.nome }}</h3>
+        <div class="qtd">
+          <button class="ghost" (click)="diminuir(item)">-</button>
+          <span>{{ item.quantidade }}</span>
+          <button (click)="adicionar(item.produto)">+</button>
+        </div>
+      </div>
+    </div>
 
-  <p>{{ item.preco | currency:'BRL' }}</p>
-
-</div>
-
-<h3>Total: {{ total() | currency:'BRL' }}</h3>
-
-<br>
-
-<a routerLink="/checkout">
-  <button>Ir para Checkout</button>
-</a>
+    <div class="card resumo">
+      <h3>Resumo</h3>
+      <p>{{ itens.length }} itens</p>
+      <h2>{{ total() | currency: 'BRL' }}</h2>
+      <a routerLink="/checkout"><button>Finalizar compra</button></a>
+    </div>
+  </div>
+</section>

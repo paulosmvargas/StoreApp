@@ -1,0 +1,14 @@
+<nav class="navbar">
+  <div class="brand">
+    <span class="logo-dot"></span>
+    <a class="brand-link" routerLink="/">StoreApp</a>
+  </div>
+
+  <div class="links">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Produtos</a>
+    <a routerLink="/carrinho" routerLinkActive="active" class="cart">
+      Carrinho
+      <span class="badge">{{ quantidade }}</span>
+    </a>
+  </div>
+</nav>

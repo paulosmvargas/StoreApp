@@ -1,0 +1,52 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.page-header p {
+  color: var(--muted);
+  margin: 6px 0 0;
+}
+
+.cart-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.itens-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.info h3 {
+  margin: 0 0 6px;
+}
+
+.price {
+  margin: 0;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.qtd {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.resumo h2 {
+  margin: 8px 0 16px;
+  color: var(--primary);
+}

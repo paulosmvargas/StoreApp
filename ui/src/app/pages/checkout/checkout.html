@@ -1,32 +1,53 @@
-<h2>Checkout</h2>
+<section class="page">
+  <div class="page-header">
+    <div>
+      <h2>Checkout</h2>
+      <p>Finalize seu pedido com segurança</p>
+    </div>
+  </div>
 
-<label>Nome</label>
-<input type="text" [(ngModel)]="nome">
-
-<br><br>
-
-<label>Email</label>
-<input type="email" [(ngModel)]="email">
-
-<br><br>
-
-<label>Endereço</label>
-<input type="text" [(ngModel)]="endereco">
-
-<br><br>
-
-<label>Forma de pagamento</label>
-
-<select [(ngModel)]="meioPagamento">
-  <option>Pix</option>
-  <option>Cartao</option>
-  <option>Boleto</option>
-</select>
-
-<br><br>
-
-<h3>Total: {{ total() | currency:'BRL' }}</h3>
-
-<button (click)="finalizarPedido()">
-  Finalizar Pedido
-</button>
+  <div class="checkout-grid">
+    <div class="card resumo">
+      <h3>Resumo do Pedido</h3>
+      <div class="line" *ngFor="let item of itens">
+        <div>
+          <strong>{{ item.produto.nome }}</strong>
+          <div class="muted">{{ item.quantidade }} x {{ item.produto.preco | currency:'BRL' }}</div>
+        </div>
+        <div>{{ (item.produto.preco * item.quantidade) | currency:'BRL' }}</div>
+        <hr>
+      </div>
+      <div class="total">
+        <span>Total: </span>
+        <strong>{{ total() | currency:'BRL' }}</strong>
+      </div>
+    </div>
+    <br>
+    <div class="card form">
+      <label>Nome</label>
+      <input type="text" [(ngModel)]="nome" required>
+      <br>
+      <label>Email</label>
+      <input type="email" [(ngModel)]="email" required>
+      <br>
+      <label>Endereço</label>
+      <input type="text" [(ngModel)]="endereco" required>
+      <br>
+      <label>Forma de pagamento</label>
+      <select [(ngModel)]="meioPagamento">
+        <option>Pix</option>
+        <option>Cartao</option>
+        <option>Boleto</option>
+      </select>
+      <br>
+      <br>
+      <button
+        class="danger"
+        (click)="finalizarPedido()"
+        [disabled]="!nome || !email || !endereco"
+      >
+        Finalizar Pedido
+      </button>
+    </div>
+  </div>
+</section>

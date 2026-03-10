@@ -5,8 +5,8 @@ import { Checkout } from './pages/checkout/checkout';
 import { Confirmacao } from './pages/confirmacao/confirmacao';
 
 export const routes: Routes = [
-  { path: '', component: Produtos },
-  { path: 'carrinho', component: Carrinho },
-  { path: 'checkout', component: Checkout },
-  { path: 'confirmacao', component: Confirmacao }
+  { path: '', component: Produtos, title: 'Produtos' },
+  { path: 'carrinho', component: Carrinho, title: 'Carrinho' },
+  { path: 'checkout', component: Checkout, title: 'Checkout' },
+  { path: 'confirmacao', component: Confirmacao, title: 'Confirmacao' }
 ];
