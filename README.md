@@ -57,7 +57,7 @@ http://127.0.0.1:4200
 - Todo o histórico do desenvolvimento pode ser acessado através dos [commits](https://github.com/paulosmvargas/StoreApp/commits/main/) no github.
 - O acesso a documentação de endpoints está acessível em:
 ```
-http://127.0.0.1:4200/swagger
+http://127.0.0.1:5011/swagger
 ```
 
 # Tecnologias utilizadas:
